@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>📈 สรุปยอดขายทั้งหมด</h3>
+<p><b>ยอดขายรวม:</b> {{ "%.2f"|format(total) }} บาท</p>
+<table class="table table-striped">
+  <thead><tr><th>ID</th><th>ผู้ขาย</th><th>ยอดรวม</th><th>วันที่</th></tr></thead>
+  <tbody>
+    {% for s in sales %}
+      <tr>
+        <td>{{ s.id }}</td>
+        <td>{{ s.user_id }}</td>
+        <td>{{ "%.2f"|format(s.total) }}</td>
+        <td>{{ s.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

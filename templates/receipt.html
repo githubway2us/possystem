@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="receipt container p-4" style="max-width: 500px; border:1px solid #ddd; border-radius:10px; background:#fff; margin:auto;">
+  <!-- Header ร้าน -->
+  <div class="text-center mb-3">
+    <h3 class="fw-bold">ร้านตัวอย่าง POS</h3>
+    <p class="mb-0">โทร: 080-123-4567</p>
+    <hr>
+  </div>
+
+  <!-- ข้อมูลใบเสร็จ -->
+  <div class="mb-3">
+    <p class="mb-1"><b>หมายเลขการขาย:</b> {{ sale.id }}</p>
+    <p class="mb-1"><b>วันที่:</b> {{ sale.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+  </div>
+
+  <!-- รายการสินค้า -->
+  <table class="table table-sm table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>สินค้า</th>
+        <th class="text-center">จำนวน</th>
+        <th class="text-end">ราคา/หน่วย</th>
+        <th class="text-end">รวม</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in items %}
+      <tr>
+        <td>{{ i.product_name or i.product_id }}</td>
+        <td class="text-center">{{ i.quantity }}</td>
+        <td class="text-end">{{ "%.2f"|format(i.subtotal / i.quantity) }}</td>
+        <td class="text-end">{{ "%.2f"|format(i.subtotal) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- สรุปยอด -->
+  <div class="text-end mt-3">
+    <h5 class="fw-bold">รวมทั้งหมด: {{ "%.2f"|format(sale.total) }} บาท</h5>
+  </div>
+
+  <!-- ขอบคุณ -->
+  <div class="text-center mt-3">
+    <p>ขอบคุณที่อุดหนุนร้านเรา 🛍</p>
+    <a href="/" class="btn btn-primary">กลับไปหน้าขาย</a>
+  </div>
+</div>
+
+{% endblock %}

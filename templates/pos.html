@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- แบนเนอร์ต้อนรับ -->
+<div class="text-center my-4">
+  <img src="{{ url_for('static', filename='images/banner_pos.png') }}" 
+       class="img-fluid rounded shadow" 
+       alt="POS Banner" 
+       style="max-height: 250px; object-fit: cover;">
+  <h2 class="mt-3 text-primary fw-bold">🛍 ระบบขายหน้าร้าน (POS)</h2>
+  <p class="text-muted">จัดการสินค้า — ขายง่าย — บันทึกอัตโนมัติ</p>
+</div>
+
+<hr>
+
+<div class="container">
+  <div class="row">
+    <!-- ตะกร้าสินค้า (ซ้าย) -->
+    <div class="col-md-4">
+      <h4 class="text-center mb-3">🧾 ตะกร้าสินค้าของคุณ</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle shadow-sm">
+          <thead class="table-primary">
+            <tr>
+              <th>ชื่อสินค้า</th>
+              <th>จำนวน</th>
+              <th>ราคา/หน่วย</th>
+              <th>รวม</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="cart-body"></tbody>
+        </table>
+      </div>
+      <h5 class="text-end mt-3">💰 รวมทั้งหมด: <span id="total" class="fw-bold text-success">0.00</span> บาท</h5>
+
+      <form method="POST" class="text-end">
+        <div id="productForm"></div>
+        <button type="submit" class="btn btn-success mt-3">✅ ชำระเงิน</button>
+        <button type="button" class="btn btn-outline-danger mt-3" onclick="clearCart()">🗑️ ล้างตะกร้า</button>
+      </form>
+    </div>
+
+    <!-- รายการสินค้า (ขวา) -->
+    <div class="col-md-8">
+      <h4 class="mb-3 text-center text-success">รายการสินค้า</h4>
+      <div class="row">
+        {% for p in products %}
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card shadow-sm border-0 rounded-3 h-100">
+            <img src="{{ url_for('static', filename='images/product_default.png') }}" 
+                 class="card-img-top" alt="{{ p.name }}"
+                 style="height: 160px; object-fit: cover; border-bottom: 1px solid #eee;">
+            <div class="card-body text-center">
+              <h5 class="card-title text-dark">{{ p.name }}</h5>
+              <p class="text-muted mb-1">ราคา: <strong>{{ "%.2f"|format(p.price) }}</strong> บาท</p>
+              <p class="small text-secondary">คงเหลือ: {{ p.stock }}</p>
+              <button class="btn btn-primary btn-sm w-100" 
+                      onclick="addToCart('{{p.id}}','{{p.name}}',{{p.price}})">
+                ➕ เพิ่มลงตะกร้า
+              </button>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <p class="text-center text-muted">ยังไม่มีสินค้าในระบบ</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/pos.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="col-md-4 offset-md-4">
+    <h3 class="text-center mb-4">สมัครสมาชิก</h3>
+    <form method="POST">
+        <input type="text" name="username" class="form-control mb-2" placeholder="ชื่อผู้ใช้" required>
+        <input type="password" name="password" class="form-control mb-3" placeholder="รหัสผ่าน" required>
+        <button class="btn btn-primary w-100">สมัครสมาชิก</button>
+    </form>
+</div>
+{% endblock %}
