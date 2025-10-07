@@ -1,0 +1,51 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- Virtual environment ----
+venv/
+env/
+ENV/
+.venv/
+
+# ---- Flask instance folder (contains DB, configs) ----
+instance/
+*.db
+*.sqlite3
+
+# ---- Logs & temporary files ----
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# ---- OS / IDE files ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ---- Cache / build ----
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+
+# ---- Testing ----
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+
+# ---- Other configs ----
+.env
+*.secret
